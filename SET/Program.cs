@@ -33,22 +33,22 @@ var summaries = new[]
 };
 
 app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-{
-    httpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+    {
+        httpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
 
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi()
-.RequireAuthorization();
+        var forecast = Enumerable.Range(1, 5).Select(index =>
+                new WeatherForecast
+                (
+                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                    Random.Shared.Next(-20, 55),
+                    summaries[Random.Shared.Next(summaries.Length)]
+                ))
+            .ToArray();
+        return forecast;
+    })
+    .WithName("GetWeatherForecast")
+    .WithOpenApi()
+    .RequireAuthorization();
 
 app.Run();
 
